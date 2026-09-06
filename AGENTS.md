@@ -47,6 +47,13 @@ the proof.
 
 ## Gotchas found in this codebase
 
+- **A test that cannot run is a test that can be wrong for months.**
+  `stats_test.v` expected `percentile([100, 120], 0.5) == 120` while the
+  code truncated to 100; nobody saw it because `v test .` here always died
+  on the sibling-directory bug first. Run the tests from an isolated copy
+  (`cp -r . /some/scratch/llmbench && cd there && v test .`) before
+  trusting a green `make build`.
+
 - **`arr.sort(a.field < b.field)` only accepts direct field access on `a`
   and `b`**, `arr.sort(some_fn(a) < some_fn(b))` is a compile error
   ("`.sort()` can only use `a` or `b` as argument"). For a derived sort
@@ -72,9 +79,12 @@ the proof.
   and `toklen`'s own AGENTS.md for the same principle applied elsewhere.
   If `vai.openai` starts requesting `stream_options.include_usage` and
   reliably gets it back, revisit this; don't fake it in the meantime.
-- **Cost is `n/a`, not `0` or an estimate, when no usage event arrived.**
+- **Cost is `n/a`, not `0` or an estimate, when no usage event arrived
+  or when `vai.cost` has no price for the model** (`TargetSummary.cost_known`).
   Same reasoning: a hidden zero reads as "this is free," which is false
-  for Ollama-vs-Anthropic-pricing comparisons.
+  for Ollama-vs-Anthropic-pricing comparisons. The first version keyed the
+  column on `has_tokens` alone and printed `$0.000000` for an unpriced
+  model that did send usage.
 - **No config file.** Targets are exactly two, auto-detected, matching
   what `toklen` already does for provider selection (duplicated, not
   shared, these are two small, independent CLIs, not a case for a
