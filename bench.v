@@ -11,7 +11,7 @@ const bench_prompt = 'Explain, in a few sentences, why the sky is blue.'
 // run_one streams one request against t and measures it. ttft_ms is set
 // on the first content_delta or thinking_delta; output_tokens only comes
 // from a usage event actually arriving on the stream, which is not
-// guaranteed by every provider — has_tokens says whether it did.
+// guaranteed by every provider, has_tokens says whether it did.
 pub fn run_one(t Target, model string, max_tokens int) RunResult {
 	req := vai.Request{
 		model: model

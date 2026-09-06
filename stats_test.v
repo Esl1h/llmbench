@@ -93,5 +93,5 @@ fn test_summarize_cost_only_when_tokens_known() {
 	])
 	assert with_tokens.has_tokens
 	assert with_tokens.cost_total == 10.0 // claude-sonnet-5 output: $10/1M
-	
+
 }
