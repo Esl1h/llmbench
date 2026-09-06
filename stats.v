@@ -1,13 +1,18 @@
 module main
 
+import math
 import vai
 
 // percentile expects a non-empty slice; the caller (summarize) only calls
-// it with the successful runs, guarded by results.len == 0.
+// it with the successful runs, guarded by results.len == 0. The index
+// rounds up, so with few runs a percentile never reports a faster value
+// than the data supports (p50 of {100, 120} is 120, not 100); the first
+// version truncated, and its own test caught it only once the test could
+// run outside the sibling-directory compiler bug.
 fn percentile(values []i64, p f64) i64 {
 	mut sorted := values.clone()
 	sorted.sort()
-	idx := int(f64(sorted.len - 1) * p)
+	idx := int(math.ceil(f64(sorted.len - 1) * p))
 	return sorted[idx]
 }
 
