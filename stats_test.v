@@ -92,6 +92,31 @@ fn test_summarize_cost_only_when_tokens_known() {
 		},
 	])
 	assert with_tokens.has_tokens
+	assert with_tokens.cost_known
 	assert with_tokens.cost_total == 10.0 // claude-sonnet-5 output: $10/1M
+	
+}
 
+fn test_summarize_unpriced_model_with_tokens_has_no_cost() {
+	// An Ollama/OpenRouter model has usage but no entry in vai's price
+	// table; that must read as "not priced", never as $0.
+	target := Target{
+		name: 'x'
+		kind: 'openai'
+	}
+	s := summarize(target, 'qwen2.5-coder:7b', [
+		RunResult{
+			ok: true
+			ttft_ms: 100
+			total_ms: 200
+			output_tokens: 1000
+			has_tokens: true
+		},
+	])
+	assert s.has_tokens
+	assert !s.cost_known
+	assert s.cost_total == 0.0
+	table := format_table([s])
+	assert table.contains('n/a')
+	assert !table.contains('\$0.000000')
 }
