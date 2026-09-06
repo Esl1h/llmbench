@@ -46,11 +46,15 @@ pub fn summarize(t Target, model_used string, results []RunResult) TargetSummary
 	}
 
 	mut cost_total := 0.0
+	mut cost_known := false
 	if has_tokens {
 		c := vai.cost(model_used, vai.Usage{
 			output_tokens: total_tokens
 		})
-		cost_total = c.output
+		if !c.unknown {
+			cost_total = c.output
+			cost_known = true
+		}
 	}
 
 	mut ttft_p50 := i64(-1)
@@ -72,6 +76,7 @@ pub fn summarize(t Target, model_used string, results []RunResult) TargetSummary
 		total_p50_ms: total_p50
 		chars_per_s: chars_per_s
 		has_tokens: has_tokens
+		cost_known: cost_known
 		cost_total: cost_total
 	}
 }

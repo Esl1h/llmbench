@@ -36,5 +36,9 @@ pub:
 	total_p50_ms i64
 	chars_per_s  f64
 	has_tokens   bool
-	cost_total   f64
+	// cost_known is true only when a usage event arrived AND vai prices
+	// the model. Without it, an unpriced model with usage would print as
+	// $0.000000, which reads as "free" instead of "not priced".
+	cost_known bool
+	cost_total f64
 }

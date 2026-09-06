@@ -58,7 +58,7 @@ pub fn format_table(summaries []TargetSummary) string {
 		ttft_p95 := if s.ttft_p95_ms < 0 { 'n/a' } else { '${s.ttft_p95_ms}ms' }
 		chars_per_s := if s.chars_per_s > 0 { '${s.chars_per_s:.0f}' } else { 'n/a' }
 		errors := '${s.errors}/${s.runs}'
-		cost := if s.has_tokens { '\$${s.cost_total:.6f}' } else { 'n/a' }
+		cost := if s.cost_known { '\$${s.cost_total:.6f}' } else { 'n/a' }
 		lines << '${color}${s.target.name:-16} ${s.model_used:-20} ${ttft_p50:-10} ${ttft_p95:-10} ${chars_per_s:-9} ${errors:-8} ${cost}${reset}'
 	}
 	return lines.join('\n')
