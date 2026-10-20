@@ -6,6 +6,15 @@ A [V](https://vlang.io) CLI that benchmarks LLM endpoints from your own connecti
 
 ## Install
 
+Prebuilt binaries for Linux (amd64) and macOS (arm64) are attached to each [release](https://github.com/Esl1h/llmbench/releases) (use `llmbench-macos-arm64` on a Mac):
+
+```sh
+curl -fsSLo ~/.local/bin/llmbench https://github.com/Esl1h/llmbench/releases/latest/download/llmbench-linux-amd64
+chmod +x ~/.local/bin/llmbench
+```
+
+Or build from source:
+
 ```sh
 v install https://github.com/Esl1h/vai   # dependency
 git clone https://github.com/Esl1h/llmbench
