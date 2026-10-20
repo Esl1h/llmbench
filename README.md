@@ -31,7 +31,7 @@ make build
 ./llmbench --json           # machine-readable output
 ```
 
-Targets are auto-detected, not configured: the first model Ollama has pulled locally (`http://localhost:11434`), plus Anthropic's `claude-sonnet-5` if `ANTHROPIC_API_KEY` is set. At least one has to be available or there's nothing to benchmark.
+Targets are auto-detected, not configured: the first model Ollama has pulled locally (`http://localhost:11434`), plus Anthropic's `claude-sonnet-5-5` if `ANTHROPIC_API_KEY` is set. At least one has to be available or there's nothing to benchmark.
 
 ```
 benchmarking ollama (qwen2.5-coder:7b), 3 run(s)...

@@ -60,7 +60,7 @@ fn main() {
 		targets << Target{
 			name:        'anthropic'
 			kind:        'anthropic'
-			model:       'claude-sonnet-5'
+			model:       'claude-sonnet-5-5'
 			api_key_env: 'ANTHROPIC_API_KEY'
 		}
 	}
