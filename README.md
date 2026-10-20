@@ -1,5 +1,7 @@
 # llmbench
 
+[![CI](https://github.com/Esl1h/llmbench/actions/workflows/ci.yml/badge.svg)](https://github.com/Esl1h/llmbench/actions/workflows/ci.yml)
+
 A [V](https://vlang.io) CLI that benchmarks LLM endpoints from your own connection: time to first token (TTFT), sustained generation rate, and error rate, ranked side by side. Built on [`vai`](https://github.com/Esl1h/vai)'s real streaming path (`Provider.stream()`, `CurlTransport`), not a simulation.
 
 ## Install
