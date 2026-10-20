@@ -72,16 +72,16 @@ pub fn summarize(t Target, model_used string, results []RunResult) TargetSummary
 	}
 
 	return TargetSummary{
-		target: t
-		model_used: model_used
-		runs: results.len
-		errors: errors
-		ttft_p50_ms: ttft_p50
-		ttft_p95_ms: ttft_p95
+		target:       t
+		model_used:   model_used
+		runs:         results.len
+		errors:       errors
+		ttft_p50_ms:  ttft_p50
+		ttft_p95_ms:  ttft_p95
 		total_p50_ms: total_p50
-		chars_per_s: chars_per_s
-		has_tokens: has_tokens
-		cost_known: cost_known
-		cost_total: cost_total
+		chars_per_s:  chars_per_s
+		has_tokens:   has_tokens
+		cost_known:   cost_known
+		cost_total:   cost_total
 	}
 }

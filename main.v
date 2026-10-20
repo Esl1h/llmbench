@@ -46,10 +46,10 @@ fn main() {
 
 	if model := ollama_first_model() {
 		targets << Target{
-			name: 'ollama'
-			kind: 'openai'
+			name:     'ollama'
+			kind:     'openai'
 			base_url: 'http://localhost:11434/v1'
-			model: model
+			model:    model
 		}
 	} else {
 		eprintln('note: Ollama not usable (${err}), skipping')
@@ -58,9 +58,9 @@ fn main() {
 	anthropic_key := os.getenv('ANTHROPIC_API_KEY')
 	if anthropic_key != '' {
 		targets << Target{
-			name: 'anthropic'
-			kind: 'anthropic'
-			model: 'claude-sonnet-5'
+			name:        'anthropic'
+			kind:        'anthropic'
+			model:       'claude-sonnet-5'
 			api_key_env: 'ANTHROPIC_API_KEY'
 		}
 	}

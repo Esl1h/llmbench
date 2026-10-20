@@ -13,17 +13,17 @@ fn test_summarize_counts_errors_separately() {
 	}
 	results := [
 		RunResult{
-			ok: true
-			ttft_ms: 100
+			ok:       true
+			ttft_ms:  100
 			total_ms: 500
 		},
 		RunResult{
-			ok: false
+			ok:  false
 			err: 'boom'
 		},
 		RunResult{
-			ok: true
-			ttft_ms: 120
+			ok:       true
+			ttft_ms:  120
 			total_ms: 600
 		},
 	]
@@ -40,7 +40,7 @@ fn test_summarize_all_errors_has_no_latency() {
 	}
 	results := [
 		RunResult{
-			ok: false
+			ok:  false
 			err: 'boom'
 		},
 	]
@@ -56,9 +56,9 @@ fn test_summarize_computes_chars_per_second() {
 	}
 	results := [
 		RunResult{
-			ok: true
-			ttft_ms: 100
-			total_ms: 600
+			ok:        true
+			ttft_ms:   100
+			total_ms:  600
 			out_chars: 250
 		},
 	]
@@ -74,8 +74,8 @@ fn test_summarize_cost_only_when_tokens_known() {
 	}
 	without_tokens := summarize(target, 'claude-sonnet-5', [
 		RunResult{
-			ok: true
-			ttft_ms: 100
+			ok:       true
+			ttft_ms:  100
 			total_ms: 200
 		},
 	])
@@ -84,17 +84,16 @@ fn test_summarize_cost_only_when_tokens_known() {
 
 	with_tokens := summarize(target, 'claude-sonnet-5', [
 		RunResult{
-			ok: true
-			ttft_ms: 100
-			total_ms: 200
+			ok:            true
+			ttft_ms:       100
+			total_ms:      200
 			output_tokens: 1_000_000
-			has_tokens: true
+			has_tokens:    true
 		},
 	])
 	assert with_tokens.has_tokens
 	assert with_tokens.cost_known
 	assert with_tokens.cost_total == 10.0 // claude-sonnet-5 output: $10/1M
-	
 }
 
 fn test_summarize_unpriced_model_with_tokens_has_no_cost() {
@@ -106,11 +105,11 @@ fn test_summarize_unpriced_model_with_tokens_has_no_cost() {
 	}
 	s := summarize(target, 'qwen2.5-coder:7b', [
 		RunResult{
-			ok: true
-			ttft_ms: 100
-			total_ms: 200
+			ok:            true
+			ttft_ms:       100
+			total_ms:      200
 			output_tokens: 1000
-			has_tokens: true
+			has_tokens:    true
 		},
 	])
 	assert s.has_tokens

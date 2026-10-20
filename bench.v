@@ -14,10 +14,10 @@ const bench_prompt = 'Explain, in a few sentences, why the sky is blue.'
 // guaranteed by every provider, has_tokens says whether it did.
 pub fn run_one(t Target, model string, max_tokens int) RunResult {
 	req := vai.Request{
-		model: model
-		messages: [vai.user(bench_prompt)]
+		model:      model
+		messages:   [vai.user(bench_prompt)]
 		max_tokens: max_tokens
-		stream: true
+		stream:     true
 	}
 
 	sw := time.new_stopwatch()
@@ -25,12 +25,12 @@ pub fn run_one(t Target, model string, max_tokens int) RunResult {
 	ch := match t.kind {
 		'anthropic' {
 			p := anthropic.Provider{
-				api_key: os.getenv(t.api_key_env)
+				api_key:   os.getenv(t.api_key_env)
 				transport: vai.Transport(vai.CurlTransport{})
 			}
 			p.stream(req) or {
 				return RunResult{
-					ok: false
+					ok:  false
 					err: err.msg()
 				}
 			}
@@ -41,13 +41,13 @@ pub fn run_one(t Target, model string, max_tokens int) RunResult {
 				key = os.getenv(t.api_key_env)
 			}
 			p := openai.Provider{
-				base_url: t.base_url
-				api_key: key
+				base_url:  t.base_url
+				api_key:   key
 				transport: vai.Transport(vai.CurlTransport{})
 			}
 			p.stream(req) or {
 				return RunResult{
-					ok: false
+					ok:  false
 					err: err.msg()
 				}
 			}
